@@ -1,16 +1,16 @@
-import { Product, Category, Article, Review, Order, Coupon } from './types';
+import { Product, Category, Article, Order, Coupon, PaymentDetails, SalesAnalyticsPoint } from './types';
 
 export const INITIAL_CATEGORIES: Category[] = [
-  { id: 1, name: 'Cleanser', slug: 'cleanser', description: 'Pembersih wajah lembut dengan pH seimbang tanpa merusak skin barrier alami.' },
-  { id: 2, name: 'Toner', slug: 'toner', description: 'Hidrasi mendalam dan mempersiapkan kulit menyerap nutrisi esensial.' },
-  { id: 3, name: 'Essence', slug: 'essence', description: 'Cairan konsentrat aktif untuk memperbaiki tekstur dan elastisitas kulit.' },
-  { id: 4, name: 'Serum', slug: 'serum', description: 'Formula potent dengan targeted active ingredients untuk hasil optimal.' },
-  { id: 5, name: 'Moisturizer', slug: 'moisturizer', description: 'Pelembap kaya ceramide & lipid botanis untuk mengunci kelembapan 24 jam.' },
-  { id: 6, name: 'Sunscreen', slug: 'sunscreen', description: 'Perlindungan UV spektrum luas dengan tekstur seringan bulu tanpa whitecast.' },
-  { id: 7, name: 'Face Mask', slug: 'face-mask', description: 'Perawatan intensif mingguan untuk detoksifikasi, hidrasi, dan revitalisasi kulit.' },
-  { id: 8, name: 'Eye Care', slug: 'eye-care', description: 'Perawatan lembut area kontur mata untuk samarkan garis halus & mata panda.' },
-  { id: 9, name: 'Exfoliator', slug: 'exfoliator', description: 'Eksfoliasi kimia lembut AHA/BHA/PHA untuk regenerasi sel kulit mati.' },
-  { id: 10, name: 'Body Care', slug: 'body-care', description: 'Nutrisi botanical menyeluruh untuk kulit tubuh yang lembut dan bercahaya.' }
+  { id: 1, name: 'Cleanser', slug: 'cleanser', description: 'Pembersih wajah ber-pH 5.5 tanpa sulfat yang menjaga hidrasi skin barrier.' },
+  { id: 2, name: 'Toner', slug: 'toner', description: 'Hidrasi esensial dengan 85% botani murni untuk menenangkan kemerahan.' },
+  { id: 3, name: 'Essence', slug: 'essence', description: 'Cairan fermentasi mikro untuk kilau kulit sehat bercahaya (Glass Skin).' },
+  { id: 4, name: 'Serum', slug: 'serum', description: 'Formula konsentrasi tinggi untuk flek hitam, jerawat, dan penuaan dini.' },
+  { id: 5, name: 'Moisturizer', slug: 'moisturizer', description: '5X Ceramide biomimetik & lipid nabati pengunci kelembapan 24 jam.' },
+  { id: 6, name: 'Sunscreen', slug: 'sunscreen', description: 'Perlindungan UV SPF 50+ PA++++ tekstur seringan air tanpa whitecast.' },
+  { id: 7, name: 'Face Mask', slug: 'face-mask', description: 'Detoksifikasi pori tanah liat kaolin dan masker tidur jeli mugwort.' },
+  { id: 8, name: 'Eye & Lip', slug: 'eye-care', description: 'Peptida biomimetik untuk lingkaran hitam mata dan peremajaan bibir.' },
+  { id: 9, name: 'Exfoliator', slug: 'exfoliator', description: 'AHA/BHA lembut meluruhkan sel kulit mati dan komedo tersumbat.' },
+  { id: 10, name: 'Body Care', slug: 'body-care', description: 'Nutrisi botanis mawar Damaskus untuk kulit tubuh lembut dan harum.' }
 ];
 
 export const INITIAL_PRODUCTS: Product[] = [
@@ -23,8 +23,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     category_name: 'Serum',
     brand_id: 1,
     brand_name: 'AURA BOTANICA',
-    short_description: 'Serum pencerah konsentrat tinggi untuk meratakan warna kulit dan mengontrol sebum berlebih.',
-    full_description: 'Serum revolusioner berbahan aktif Niacinamide kemurnian tinggi 10% dipadukan dengan Zinc PCA 1% dan ekstrak Centella Asiatica. Diformulasikan khusus untuk memudarkan flek hitam bekas jerawat (PIH), memperkecil tampilan pori-pori, dan menenangkan kemerahan tanpa rasa lengket.',
+    short_description: 'Serum pencerah konsentrat tinggi untuk memudarkan noda hitam dan mengontrol sebum berlebih.',
+    full_description: 'Serum revolusioner berbahan aktif Niacinamide kemurnian tinggi 10% dipadukan dengan Zinc PCA 1% dan Centella Asiatica murni. Diformulasikan khusus untuk memudarkan flek hitam bekas jerawat (PIH), memperkecil tampilan pori-pori, dan menenangkan kemerahan tanpa rasa lengket sama sekali.',
     ingredients: 'Aqua, Niacinamide 10%, Butylene Glycol, Zinc PCA 1%, Centella Asiatica Extract, Sodium Hyaluronate, Panthenol, Allantoin, Phenoxyethanol, Ethylhexylglycerin.',
     benefits: 'Mencerahkan flek hitam, mengontrol sebum berlebih, menenangkan kemerahan, memperkuat barrier kulit.',
     how_to_use: 'Teteskan 2-3 tetes ke telapak tangan yang bersih. Usap dan tepuk lembut pada wajah dan leher setiap pagi dan malam setelah toner.',
@@ -35,6 +35,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: true,
     is_new_arrival: false,
+    active_percentage: '10% Niacinamide + 1% Zinc',
+    skin_type: ['Berminyak', 'Kombinasi', 'Bekas Jerawat'],
+    rating: 4.9,
+    review_count: 184,
     primary_image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
     gallery_images: [
       'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
@@ -62,6 +66,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: true,
     is_new_arrival: false,
+    active_percentage: '85% Jeju Centella',
+    skin_type: ['Sensitif', 'Kemerahan', 'Iritasi'],
+    rating: 4.8,
+    review_count: 142,
     primary_image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80',
     gallery_images: [
       'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80',
@@ -89,6 +97,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: true,
     is_new_arrival: true,
+    active_percentage: '5X Biomimetic Ceramides',
+    skin_type: ['Semua Jenis Kulit', 'Kulit Kering', 'Skin Barrier Rusak'],
+    rating: 5.0,
+    review_count: 210,
     primary_image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
     gallery_images: [
       'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
@@ -104,7 +116,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     category_name: 'Sunscreen',
     brand_id: 1,
     brand_name: 'AURA BOTANICA',
-    short_description: 'Tabir surya generasi baru tanpa whitecast, tidak pedih di mata, dan seringan air.',
+    short_description: 'Tabir surya kimia generasi baru tanpa whitecast, tidak pedih di mata, dan seringan air.',
     full_description: 'Pelindung matahari revolusioner dengan proteksi UV spektrum luas. Teksturnya seringan serum, cepat meresap dengan finish satin velvet yang cantik tanpa kilap berlebih. Bebas alkohol, bebas pewangi, dan ramah terumbu karang.',
     ingredients: 'Aqua, Ethylhexyl Triazone, Diethylamino Hydroxybenzoyl Hexyl Benzoate, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine, Niacinamide, Squalane, Tocopherol.',
     benefits: 'Perlindungan maksimal dari radiasi UVA & UVB, tidak lengket, no whitecast, mencegah penuaan dini.',
@@ -116,6 +128,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: true,
     is_new_arrival: false,
+    active_percentage: 'Broad Spectrum SPF 50+ PA++++',
+    skin_type: ['Semua Jenis Kulit', 'Sensitif', 'Kulit Berminyak'],
+    rating: 4.9,
+    review_count: 275,
     primary_image: 'https://images.unsplash.com/photo-1556228852-80b6e5eeff06?auto=format&fit=crop&w=800&q=80',
     gallery_images: ['https://images.unsplash.com/photo-1556228852-80b6e5eeff06?auto=format&fit=crop&w=800&q=80']
   },
@@ -131,7 +147,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     short_description: 'Minyak wajah organik perasan dingin kaya Omega 3, 6, 9 dan Pro-Vitamin A.',
     full_description: 'Kombinasi mewah Rosehip seed oil cold-pressed dari Chili dipadukan dengan essential oil mawar Damaskus Prancis dan vitamin E murni. Menstimulasi regenerasi sel kulit pada malam hari untuk kulit bercahaya saat bangun pagi.',
     ingredients: 'Rosa Canina (Rosehip) Seed Oil 100% Organic, Rosa Damascena Flower Oil, Squalane, Tocopherol.',
-    benefits: 'Menyamarkan bekas luka, meningkatkan elastisitas, mengenyalkan kulit, aroma relaksasi.',
+    benefits: 'Menyamarkan bekas luka, meningkatkan elastisitas, mengenyalkan kulit, aroma aromaterapi relaksasi.',
     how_to_use: 'Hangatkan 2-3 tetes di telapak tangan, tekan lembut ke wajah yang masih lembap sebagai langkah terakhir skincare malam.',
     volume_weight: '20 ml',
     price: 279000,
@@ -140,6 +156,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: false,
     is_new_arrival: true,
+    active_percentage: '100% Organic Cold-Pressed',
+    skin_type: ['Kering', 'Penuaan Dini', 'Bekas Luka'],
+    rating: 4.9,
+    review_count: 88,
     primary_image: 'https://images.unsplash.com/photo-1608248597359-00f72365eb54?auto=format&fit=crop&w=800&q=80',
     gallery_images: ['https://images.unsplash.com/photo-1608248597359-00f72365eb54?auto=format&fit=crop&w=800&q=80']
   },
@@ -164,6 +184,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: false,
     is_bestseller: true,
     is_new_arrival: false,
+    active_percentage: 'pH 5.5 Amino Surfactant',
+    skin_type: ['Semua Jenis Kulit', 'Sensitif', 'Eczema'],
+    rating: 4.8,
+    review_count: 165,
     primary_image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
     gallery_images: ['https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80']
   },
@@ -188,6 +212,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: false,
     is_bestseller: false,
     is_new_arrival: true,
+    active_percentage: '8 Molecular Weights HA',
+    skin_type: ['Dehidrasi', 'Kering', 'Garis Halus'],
+    rating: 4.9,
+    review_count: 110,
     primary_image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
     gallery_images: ['https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80']
   },
@@ -212,6 +240,10 @@ export const INITIAL_PRODUCTS: Product[] = [
     is_featured: true,
     is_bestseller: true,
     is_new_arrival: false,
+    active_percentage: '2% Pharmaceutical Bakuchiol',
+    skin_type: ['Bumil / Busui', 'Sensitif', 'Garis Halus'],
+    rating: 5.0,
+    review_count: 94,
     primary_image: 'https://images.unsplash.com/photo-1608248597359-00f72365eb54?auto=format&fit=crop&w=800&q=80',
     gallery_images: ['https://images.unsplash.com/photo-1608248597359-00f72365eb54?auto=format&fit=crop&w=800&q=80']
   }
@@ -256,6 +288,95 @@ export const INITIAL_ARTICLES: Article[] = [
   }
 ];
 
+export const PAYMENT_CHANNELS_LIST: PaymentDetails[] = [
+  {
+    channel: 'bca_va',
+    title: 'BCA Virtual Account',
+    category: 'Virtual Account',
+    bank_name: 'BCA',
+    account_name: 'AURA BOTANICA INDONESIA',
+    va_number: '8820192384910293',
+    fee: 0,
+    expiry_minutes: 180
+  },
+  {
+    channel: 'mandiri_va',
+    title: 'Mandiri Virtual Account',
+    category: 'Virtual Account',
+    bank_name: 'Bank Mandiri',
+    account_name: 'AURA BOTANICA INDONESIA',
+    va_number: '8910293847291048',
+    fee: 0,
+    expiry_minutes: 180
+  },
+  {
+    channel: 'bri_va',
+    title: 'BRI Virtual Account (BRIVA)',
+    category: 'Virtual Account',
+    bank_name: 'BRI',
+    account_name: 'AURA BOTANICA INDONESIA',
+    va_number: '1293847291038472',
+    fee: 0,
+    expiry_minutes: 180
+  },
+  {
+    channel: 'bni_va',
+    title: 'BNI Virtual Account',
+    category: 'Virtual Account',
+    bank_name: 'BNI',
+    account_name: 'AURA BOTANICA INDONESIA',
+    va_number: '9847291038472910',
+    fee: 0,
+    expiry_minutes: 180
+  },
+  {
+    channel: 'qris',
+    title: 'QRIS Instan (GoPay, OVO, ShopeePay, BCA Mobile)',
+    category: 'QRIS & E-Wallet',
+    qr_code_url: 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020101021226600016ID.CO.AURA.WWW0118936000020110000000002030035104000053033605802ID5913AURA_BOTANICA6007JAKARTA6304A8F2',
+    fee: 0,
+    expiry_minutes: 15
+  },
+  {
+    channel: 'gopay',
+    title: 'GoPay / GoPay Later',
+    category: 'QRIS & E-Wallet',
+    fee: 1000,
+    expiry_minutes: 30
+  },
+  {
+    channel: 'shopeepay',
+    title: 'ShopeePay',
+    category: 'QRIS & E-Wallet',
+    fee: 1000,
+    expiry_minutes: 30
+  },
+  {
+    channel: 'credit_card',
+    title: 'Kartu Kredit / Debit Online (Visa, Mastercard, JCB)',
+    category: 'Credit Card',
+    fee: 2500,
+    expiry_minutes: 15
+  },
+  {
+    channel: 'cod',
+    title: 'Bayar di Tempat (Cash on Delivery / COD)',
+    category: 'Lainnya',
+    fee: 5000,
+    expiry_minutes: 1440
+  },
+  {
+    channel: 'manual_transfer',
+    title: 'Transfer Rekening Manual (Verifikasi Staf)',
+    category: 'Lainnya',
+    bank_name: 'BCA Cabang Sudirman',
+    va_number: '8820-192-384',
+    account_name: 'PT AURA BOTANICA INDONESIA',
+    fee: 0,
+    expiry_minutes: 1440
+  }
+];
+
 export const INITIAL_ORDERS: Order[] = [
   {
     id: 1,
@@ -271,14 +392,16 @@ export const INITIAL_ORDERS: Order[] = [
     subtotal: 358000,
     discount_amount: 30000,
     shipping_cost: 0,
+    payment_fee: 0,
     grand_total: 328000,
-    payment_method: 'Bank Transfer (BCA)',
+    payment_channel: 'bca_va',
+    payment_method_name: 'BCA Virtual Account',
     payment_status: 'paid',
     order_status: 'Completed',
     tracking_number: 'JNE-8829103948',
     items: [
-      { product_name: 'Niacinamide 10% + Zinc Glow Serum', price: 169000, quantity: 1, total: 169000 },
-      { product_name: '5X Ceramide Barrier Moisture Cream', price: 189000, quantity: 1, total: 189000 }
+      { product_name: 'Niacinamide 10% + Zinc Glow Serum', price: 169000, quantity: 1, total: 169000, sku: 'AB-SRM-001' },
+      { product_name: '5X Ceramide Barrier Moisture Cream', price: 189000, quantity: 1, total: 189000, sku: 'CB-MST-003' }
     ],
     created_at: '2026-10-01 14:32'
   },
@@ -296,14 +419,16 @@ export const INITIAL_ORDERS: Order[] = [
     subtotal: 298000,
     discount_amount: 0,
     shipping_cost: 15000,
+    payment_fee: 0,
     grand_total: 313000,
-    payment_method: 'Bank Transfer (Mandiri)',
+    payment_channel: 'qris',
+    payment_method_name: 'QRIS Instan',
     payment_status: 'paid',
     order_status: 'Shipped',
     tracking_number: 'SCP-773829104',
     items: [
-      { product_name: 'Invisible Velvet Sunscreen SPF 50+', price: 159000, quantity: 1, total: 159000 },
-      { product_name: 'Centella Soothing Barrier Toner', price: 139000, quantity: 1, total: 139000 }
+      { product_name: 'Invisible Velvet Sunscreen SPF 50+', price: 159000, quantity: 1, total: 159000, sku: 'AB-SUN-004' },
+      { product_name: 'Centella Soothing Barrier Toner', price: 139000, quantity: 1, total: 139000, sku: 'AB-TON-002' }
     ],
     created_at: '2026-10-01 16:15'
   },
@@ -321,20 +446,89 @@ export const INITIAL_ORDERS: Order[] = [
     subtotal: 408000,
     discount_amount: 40000,
     shipping_cost: 0,
-    grand_total: 368000,
-    payment_method: 'QRIS / GoPay',
+    payment_fee: 1000,
+    grand_total: 369000,
+    payment_channel: 'gopay',
+    payment_method_name: 'GoPay',
     payment_status: 'paid',
     order_status: 'Processing',
     items: [
-      { product_name: 'Pure Damask Rosehip Night Elixir', price: 249000, quantity: 1, total: 249000 },
-      { product_name: 'Invisible Velvet Sunscreen SPF 50+', price: 159000, quantity: 1, total: 159000 }
+      { product_name: 'Pure Damask Rosehip Night Elixir', price: 249000, quantity: 1, total: 249000, sku: 'RF-OIL-005' },
+      { product_name: 'Invisible Velvet Sunscreen SPF 50+', price: 159000, quantity: 1, total: 159000, sku: 'AB-SUN-004' }
     ],
     created_at: '2026-10-02 09:20'
+  },
+  {
+    id: 4,
+    order_number: 'ORD-20261002-0004',
+    customer_name: 'Gabriella Tan',
+    customer_email: 'gabriella@gmail.com',
+    customer_phone: '085712345678',
+    shipping_address: 'Jl. Thamrin Boulevard No. 10',
+    province: 'DKI Jakarta',
+    city: 'Jakarta Pusat',
+    district: 'Menteng',
+    postal_code: '10310',
+    subtotal: 219000,
+    discount_amount: 0,
+    shipping_cost: 0,
+    payment_fee: 2500,
+    grand_total: 221500,
+    payment_channel: 'credit_card',
+    payment_method_name: 'Kartu Kredit (Visa)',
+    payment_status: 'paid',
+    order_status: 'Confirmed',
+    items: [
+      { product_name: 'Bakuchiol 2% + Peptides Botanical Elixir', price: 219000, quantity: 1, total: 219000, sku: 'LL-SRM-008' }
+    ],
+    created_at: '2026-10-02 10:45'
+  },
+  {
+    id: 5,
+    order_number: 'ORD-20261002-0005',
+    customer_name: 'Maya Larasati',
+    customer_email: 'maya.larasati@gmail.com',
+    customer_phone: '081912344321',
+    shipping_address: 'Jl. Affandi No. 27',
+    province: 'DI Yogyakarta',
+    city: 'Sleman',
+    district: 'Depok',
+    postal_code: '55281',
+    subtotal: 498000,
+    discount_amount: 0,
+    shipping_cost: 0,
+    payment_fee: 5000,
+    grand_total: 503000,
+    payment_channel: 'cod',
+    payment_method_name: 'Cash on Delivery (COD)',
+    payment_status: 'unpaid',
+    order_status: 'Pending',
+    items: [
+      { product_name: 'Pure Damask Rosehip Night Elixir', price: 249000, quantity: 2, total: 498000, sku: 'RF-OIL-005' }
+    ],
+    created_at: '2026-10-02 11:30'
   }
+];
+
+export const INITIAL_ANALYTICS_DATA: SalesAnalyticsPoint[] = [
+  { date: '19 Sep', revenue: 1420000, ordersCount: 5, visitors: 340 },
+  { date: '20 Sep', revenue: 1850000, ordersCount: 7, visitors: 420 },
+  { date: '21 Sep', revenue: 2100000, ordersCount: 8, visitors: 510 },
+  { date: '22 Sep', revenue: 1690000, ordersCount: 6, visitors: 480 },
+  { date: '23 Sep', revenue: 2450000, ordersCount: 9, visitors: 620 },
+  { date: '24 Sep', revenue: 3100000, ordersCount: 11, visitors: 780 },
+  { date: '25 Sep', revenue: 2890000, ordersCount: 10, visitors: 740 },
+  { date: '26 Sep', revenue: 3450000, ordersCount: 13, visitors: 890 },
+  { date: '27 Sep', revenue: 4120000, ordersCount: 15, visitors: 1020 },
+  { date: '28 Sep', revenue: 3850000, ordersCount: 14, visitors: 960 },
+  { date: '29 Sep', revenue: 4600000, ordersCount: 17, visitors: 1150 },
+  { date: '30 Sep', revenue: 5250000, ordersCount: 19, visitors: 1320 },
+  { date: '01 Okt', revenue: 4980000, ordersCount: 18, visitors: 1280 },
+  { date: '02 Okt', revenue: 5740000, ordersCount: 21, visitors: 1490 }
 ];
 
 export const INITIAL_COUPONS: Coupon[] = [
   { code: 'GLOWSKIN', discount_type: 'fixed', discount_value: 30000, min_spend: 250000, description: 'Potongan Rp 30.000 belanja minimal Rp 250.000' },
-  { code: 'WELCOME10', discount_type: 'percentage', discount_value: 10, min_spend: 100000, description: 'Diskon 10% member baru' },
-  { code: 'FREESHIP', discount_type: 'fixed', discount_value: 15000, min_spend: 150000, description: 'Potongan ongkir Rp 15.000' }
+  { code: 'WELCOME10', discount_type: 'percentage', discount_value: 10, min_spend: 100000, description: 'Diskon 10% untuk pesanan pertama member baru' },
+  { code: 'FREESHIP', discount_type: 'fixed', discount_value: 15000, min_spend: 150000, description: 'Potongan ongkos kirim Rp 15.000' }
 ];

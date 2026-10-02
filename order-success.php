@@ -1,6 +1,6 @@
 <?php
 /**
- * AURA BOTANICA - Order Success Page
+ * AURA BOTANICA - Order Success & Payment Gateway Guidance
  */
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/functions.php';
@@ -17,36 +17,57 @@ if (!$order) {
 
 $orderItems = Database::fetchAll("SELECT * FROM order_items WHERE order_id = ?", "i", [$order['id']]);
 
-$customMeta = ['title' => 'Pesanan Berhasil - ' . $orderNumber];
+$customMeta = ['title' => 'Instruksi Pembayaran & Pesanan Berhasil - ' . $orderNumber];
 require_once __DIR__ . '/includes/header.php';
+
+$vaNumber = '8820' . substr($order['customer_phone'], -4) . sprintf("%04d", $order['id']);
 ?>
 
-<div class="container" style="padding: 50px 20px 90px; max-width: 820px;">
+<div class="container" style="padding: 50px 20px 90px; max-width: 840px;">
     <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 12px; padding: 40px; text-align: center; margin-bottom: 30px;">
         <div style="width: 64px; height: 64px; background: #E6F4EA; color: #137333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 20px;">
             ✓
         </div>
-        <h1 style="font-size: 32px; margin-bottom: 8px;">Terima Kasih Atas Pesanan Anda!</h1>
-        <p style="color: var(--color-text-muted); font-size: 15px;">Nomor pesanan Anda: <strong style="color: #2C2724; font-family: monospace; font-size: 17px;"><?= e($order['order_number']) ?></strong></p>
-        <p style="color: var(--color-text-muted); font-size: 13.5px; margin-top: 6px;">Detail konfirmasi dan invoice telah dikirimkan ke email <strong><?= e($order['customer_email']) ?></strong>.</p>
+        <h1 style="font-size: 32px; margin-bottom: 8px;">Pesanan Anda Berhasil Dibuat!</h1>
+        <p style="color: var(--color-text-muted); font-size: 15px;">Nomor Transaksi: <strong style="color: #2C2724; font-family: monospace; font-size: 18px;"><?= e($order['order_number']) ?></strong></p>
+        <p style="color: var(--color-text-muted); font-size: 13.5px; margin-top: 6px;">Invoice konfirmasi telah dikirimkan ke email <strong><?= e($order['customer_email']) ?></strong>.</p>
     </div>
 
-    <!-- Order & Payment Instructions -->
+    <!-- Tailored Payment Instructions based on method -->
     <div style="background: #FFFFFF; border: 1px solid var(--color-border); border-radius: 12px; padding: 32px; margin-bottom: 24px;">
-        <h2 style="font-size: 20px; margin-bottom: 18px;">Instruksi Pembayaran</h2>
+        <h2 style="font-size: 20px; margin-bottom: 18px;">Panduan Pembayaran: <?= e($order['payment_method']) ?></h2>
         
-        <?php if (str_contains($order['payment_method'], 'BCA')): ?>
-            <div style="background: #FAF8F5; border-left: 4px solid var(--color-accent); padding: 18px 20px; border-radius: 4px; margin-bottom: 20px;">
-                <div style="font-size: 13px; color: var(--color-text-muted);">Transfer Bank BCA</div>
-                <div style="font-size: 22px; font-weight: 700; font-family: monospace; margin: 4px 0;">8820-192-384</div>
-                <div style="font-size: 13px; font-weight: 500;">a/n PT AURA BOTANICA INDONESIA</div>
-                <div style="font-size: 13px; color: var(--color-text-muted); margin-top: 6px;">Total yang harus ditransfer: <strong style="color: #2C2724; font-size: 16px;"><?= format_rupiah($order['grand_total']) ?></strong></div>
+        <?php if (str_contains($order['payment_method'], 'Virtual Account')): ?>
+            <div style="background: #FAF8F5; border-left: 4px solid var(--color-accent); padding: 20px; border-radius: 6px; margin-bottom: 20px;">
+                <div style="font-size: 13px; color: var(--color-text-muted);">Nomor <?= e($order['payment_method']) ?>:</div>
+                <div style="font-size: 24px; font-weight: 700; font-family: monospace; letter-spacing: 2px; margin: 6px 0; color: #1F1C1A;">
+                    <?= $vaNumber ?>
+                </div>
+                <div style="font-size: 13px; font-weight: 600;">a/n AURA BOTANICA INDONESIA</div>
+                <div style="font-size: 14px; margin-top: 8px;">Total Tagihan: <strong style="color: #1F1C1A; font-size: 16px;"><?= format_rupiah($order['grand_total']) ?></strong></div>
             </div>
-            <p style="font-size: 13px; color: var(--color-text-muted);">Setelah melakukan pembayaran, konfirmasi transfer Anda melalui WhatsApp Customer Care dengan menyertakan nomor pesanan.</p>
-        <?php elseif ($order['payment_method'] === 'Cash on Delivery'): ?>
-            <p style="font-size: 14px; color: #4A433E;">Pesanan COD Anda sedang disiapkan dan akan dikirim ke alamat tujuan. Siapkan uang pas sebesar <strong><?= format_rupiah($order['grand_total']) ?></strong> saat kurir mengantarkan paket.</p>
+            <div style="font-size: 13.5px; line-height: 1.6; color: #4A433E;">
+                <strong>Langkah Pembayaran ATM / M-Banking:</strong>
+                <ol style="margin-left: 20px; margin-top: 6px;">
+                  <li>Buka aplikasi Mobile Banking bank Anda, pilih menu <strong>Transfer Virtual Account</strong>.</li>
+                  <li>Masukkan nomor VA: <strong><?= $vaNumber ?></strong>.</li>
+                  <li>Konfirmasi detail dan transaksi Anda akan otomatis terverifikasi sistem dalam hitungan detik.</li>
+                </ol>
+            </div>
+        <?php elseif (str_contains($order['payment_method'], 'QRIS')): ?>
+            <div style="text-align: center; padding: 20px; background: #FAF8F5; border-radius: 8px; margin-bottom: 20px;">
+                <p style="font-size: 14px; margin-bottom: 12px;">Pindai kode QRIS di bawah ini menggunakan aplikasi mobile banking atau e-wallet pilihan Anda:</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=00020101021226600016ID.CO.AURA.WWW0118936000020110000000002030035104000053033605802ID5913AURA_BOTANICA6007JAKARTA6304A8F2" alt="QRIS Code" style="margin: 0 auto; border-radius: 8px; border: 2px solid #2C2724; width: 220px; height: 220px;">
+                <p style="font-size: 13px; font-weight: 600; margin-top: 10px;">Total Pembayaran: <?= format_rupiah($order['grand_total']) ?></p>
+            </div>
+        <?php elseif (str_contains($order['payment_method'], 'COD')): ?>
+            <p style="font-size: 14px; color: #4A433E; line-height: 1.6;">
+                Pesanan <strong>Cash on Delivery (COD)</strong> Anda telah diterima dan diteruskan ke tim gudang. Siapkan dana pas sebesar <strong><?= format_rupiah($order['grand_total']) ?></strong> untuk diserahkan kepada kurir ekspedisi saat paket skincare tiba.
+            </p>
         <?php else: ?>
-            <p style="font-size: 14px; color: #4A433E;">Metode Pembayaran: <strong><?= e($order['payment_method']) ?></strong>. Silakan selesaikan pembayaran sesuai instruksi pada aplikasi e-wallet Anda.</p>
+            <p style="font-size: 14px; color: #4A433E;">
+                Pembayaran via <strong><?= e($order['payment_method']) ?></strong> berhasil dicatat. Transaksi dijamin aman melalui proteksi gateway bersertifikasi.
+            </p>
         <?php endif; ?>
     </div>
 
@@ -101,7 +122,7 @@ require_once __DIR__ . '/includes/header.php';
     <!-- Actions -->
     <div style="display: flex; justify-content: space-between; gap: 16px;">
         <a href="<?= BASE_URL ?>/" class="btn btn-outline">Kembali ke Beranda</a>
-        <button onclick="window.print()" class="btn btn-primary">Cetak Bukti Pesanan (Invoice)</button>
+        <button onclick="window.print()" class="btn btn-primary">Cetak Bukti Pembayaran / Invoice</button>
     </div>
 </div>
 

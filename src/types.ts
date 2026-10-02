@@ -21,6 +21,10 @@ export interface Product {
   is_new_arrival: boolean;
   primary_image: string;
   gallery_images: string[];
+  skin_type?: string[];
+  active_percentage?: string;
+  rating?: number;
+  review_count?: number;
 }
 
 export interface Category {
@@ -28,6 +32,7 @@ export interface Category {
   name: string;
   slug: string;
   description: string;
+  image?: string;
 }
 
 export interface Article {
@@ -50,11 +55,36 @@ export interface Review {
   rating: number;
   comment: string;
   created_at: string;
+  skin_concern?: string;
 }
 
 export interface CartItem {
   product: Product;
   quantity: number;
+}
+
+export type PaymentChannel = 
+  | 'bca_va'
+  | 'mandiri_va'
+  | 'bri_va'
+  | 'bni_va'
+  | 'qris'
+  | 'gopay'
+  | 'shopeepay'
+  | 'credit_card'
+  | 'cod'
+  | 'manual_transfer';
+
+export interface PaymentDetails {
+  channel: PaymentChannel;
+  title: string;
+  category: 'Virtual Account' | 'QRIS & E-Wallet' | 'Credit Card' | 'Lainnya';
+  va_number?: string;
+  account_name?: string;
+  bank_name?: string;
+  qr_code_url?: string;
+  fee: number;
+  expiry_minutes: number;
 }
 
 export interface Order {
@@ -71,12 +101,15 @@ export interface Order {
   subtotal: number;
   discount_amount: number;
   shipping_cost: number;
+  payment_fee: number;
   grand_total: number;
-  payment_method: string;
-  payment_status: 'unpaid' | 'paid' | 'refunded';
+  payment_channel: PaymentChannel;
+  payment_method_name: string;
+  payment_status: 'unpaid' | 'paid' | 'refunded' | 'expired';
   order_status: 'Pending' | 'Confirmed' | 'Processing' | 'Shipped' | 'Completed' | 'Cancelled';
+  va_number?: string;
   tracking_number?: string;
-  items: { product_name: string; price: number; quantity: number; total: number }[];
+  items: { product_name: string; price: number; quantity: number; total: number; sku?: string }[];
   created_at: string;
 }
 
@@ -86,4 +119,19 @@ export interface Coupon {
   discount_value: number;
   min_spend: number;
   description: string;
+}
+
+export interface AdminUser {
+  id: number;
+  name: string;
+  email: string;
+  role: 'Super Admin' | 'Admin' | 'Editor' | 'Order Manager';
+  avatar?: string;
+}
+
+export interface SalesAnalyticsPoint {
+  date: string;
+  revenue: number;
+  ordersCount: number;
+  visitors: number;
 }
