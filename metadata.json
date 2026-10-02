@@ -1,0 +1,6 @@
+{
+  "name": "AURA BOTANICA - Luxury Skincare E-Commerce",
+  "description": "Premium botanical skincare e-commerce & management system built with clean PHP Native & MySQLi architecture, complete with public storefront, customer accounts, and comprehensive admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

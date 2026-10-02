@@ -1,0 +1,331 @@
+/* ========================================================
+   AURA BOTANICA - Premium Botanical Skincare Styling
+   Clean, Elegant, High-Conversion E-Commerce
+======================================================== */
+
+:root {
+    --color-bg: #FAF8F5;
+    --color-surface: #FFFFFF;
+    --color-surface-subtle: #F4EFEB;
+    --color-text-main: #2C2724;
+    --color-text-muted: #736B63;
+    --color-accent: #9B786F;
+    --color-accent-dark: #7D5D55;
+    --color-border: #E8DFD5;
+    --color-badge: #ECE3D9;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --shadow-subtle: 0 4px 20px rgba(44, 39, 36, 0.04);
+    --shadow-card: 0 10px 30px rgba(44, 39, 36, 0.07);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-serif {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--color-text-main);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Announcement Bar */
+.announcement-bar {
+    background-color: #2C2724;
+    color: #F4EFEB;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    padding: 8px 16px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Main Navigation */
+.header-main {
+    background: rgba(250, 248, 245, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 76px;
+}
+
+.brand-logo {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-link {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--color-text-main);
+}
+.nav-link:hover {
+    color: var(--color-accent);
+}
+
+.nav-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.cart-icon-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.btn-primary {
+    background-color: var(--color-text-main);
+    color: #FFFFFF;
+}
+.btn-primary:hover {
+    background-color: var(--color-accent);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--color-text-main);
+    color: var(--color-text-main);
+}
+.btn-outline:hover {
+    background-color: var(--color-text-main);
+    color: #FFFFFF;
+}
+
+.btn-accent {
+    background-color: var(--color-accent);
+    color: #fff;
+}
+.btn-accent:hover {
+    background-color: var(--color-accent-dark);
+}
+
+/* Product Card */
+.product-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+}
+
+.product-image-wrap {
+    position: relative;
+    padding-top: 100%;
+    background: #f7f4ef;
+    overflow: hidden;
+}
+
+.product-image-wrap img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image-wrap img {
+    transform: scale(1.05);
+}
+
+.product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-text-main);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    z-index: 2;
+}
+
+.product-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-category-meta {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: 6px;
+}
+
+.product-title {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--color-text-main);
+}
+
+.product-prices {
+    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.price-current {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--color-text-main);
+}
+
+.price-old {
+    font-size: 14px;
+    text-decoration: line-through;
+    color: var(--color-text-muted);
+}
+
+/* Footer */
+.site-footer {
+    background: #231F1C;
+    color: #D4C7B8;
+    padding: 70px 0 30px;
+    margin-top: 90px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-col h4 {
+    color: #FAF8F5;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a:hover {
+    color: #FAF8F5;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(232, 223, 213, 0.15);
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #9E9285;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-split { grid-template-columns: 1fr !important; }
+}

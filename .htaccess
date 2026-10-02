@@ -1,0 +1,70 @@
+# ========================================================
+# AURA BOTANICA - APACHE REWRITE & SECURITY CONFIGURATION
+# ========================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Force HTTPS (Optional on live servers)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Sitemap XML Rewrite
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
+    RewriteRule ^robots\.txt$ robots.txt [L]
+
+    # Clean Public URLs
+    RewriteRule ^products/?$ products.php [L,QSA]
+    RewriteRule ^products/category/([a-zA-Z0-9_-]+)/?$ products.php?category=$1 [L,QSA]
+    RewriteRule ^product/([a-zA-Z0-9_-]+)/?$ product.php?slug=$1 [L,QSA]
+
+    RewriteRule ^articles/?$ articles.php [L,QSA]
+    RewriteRule ^article/([a-zA-Z0-9_-]+)/?$ article.php?slug=$1 [L,QSA]
+
+    RewriteRule ^cart/?$ cart.php [L,QSA]
+    RewriteRule ^checkout/?$ checkout.php [L,QSA]
+    RewriteRule ^order/success/([a-zA-Z0-9_-]+)/?$ order-success.php?order=$1 [L,QSA]
+
+    RewriteRule ^about-us/?$ about.php [L,QSA]
+    RewriteRule ^contact-us/?$ contact.php [L,QSA]
+    RewriteRule ^faq/?$ faq.php [L,QSA]
+    RewriteRule ^privacy-policy/?$ privacy-policy.php [L,QSA]
+    RewriteRule ^terms/?$ terms.php [L,QSA]
+    RewriteRule ^refund-policy/?$ refund-policy.php [L,QSA]
+
+    RewriteRule ^account/?$ account.php [L,QSA]
+    RewriteRule ^login/?$ login.php [L,QSA]
+    RewriteRule ^register/?$ register.php [L,QSA]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# GZIP Compression for Fast Load Speeds
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# Protect Sensitive Configuration Files
+<FilesMatch "^(config\.php|database\.php|\.env.*|\.git.*|database\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
